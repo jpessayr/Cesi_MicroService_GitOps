@@ -95,7 +95,7 @@ jobs:
           time: '10s'
 
       - name: Test Backend Container
-        if: succcess()
+        if: success()
         run: curl http://127.0.0.1:12000
 
       - name: Setup node
