@@ -1,0 +1,6 @@
+mysql
+
+backend/node_modules
+backend/coverage
+
+frontend/node_modules
