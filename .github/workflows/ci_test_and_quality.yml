@@ -72,12 +72,12 @@ jobs:
           path: backend/coverage
           retention-days: 3 
 
-  Frontend: 
+  Frontend:
     needs: [Backend]
-    runs-on: ubuntu:latest
+    runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: frontend/
+        working-directory: frontend
 
     steps:
       - name: Checkout
@@ -88,14 +88,14 @@ jobs:
         run: |
           docker compose -f docker-compose-build.yml up -d
           docker ps -a
-      
-      - name : Sleep for 10 seconds
+
+      - name: Sleep for 10 seconds
         uses: jakejarvis/wait-action@master
         with:
           time: '10s'
 
       - name: Test Backend Container
-        if: succcess()
+        if: success()
         run: curl http://127.0.0.1:12000
 
       - name: Setup node
@@ -104,16 +104,16 @@ jobs:
           node-version: 20.x
 
       - name: Cypress E2E Install
-        uses: cypress.io/github-action@v6
-        with: 
-          runTests: false
-          working-directory: frontend
-        
+        uses: cypress-io/github-action@v6
+        with:
+            runTests: false
+            working-directory: frontend
+
       - name: Install Dependencies
         run: npm i
 
       - name: Start E2E Test
-        uses: cypress.io/github-action@v6
+        uses: cypress-io/github-action@v6
         with:
           install: false
           working-directory: frontend
@@ -124,15 +124,16 @@ jobs:
         with:
           name: cypress-screenshots
           path: frontend/cypress/screenshots
-          retentions-days: 1
+          retention-days: 1
 
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: cypress-videos
           path: frontend/cypress/videos
-          retentions-days: 3
+          retention-days: 3
 
       - name: Clean Builder Backend Docker
+        if: always()
         working-directory: backend
         run: docker compose -f docker-compose-build.yml down
