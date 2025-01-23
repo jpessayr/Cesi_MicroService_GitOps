@@ -137,7 +137,7 @@ jobs:
         if: always()
         working-directory: backend
         run: docker compose -f docker-compose-build.yml down
-
+        
   QualityBack:
     needs: [Backend, Frontend]
     runs-on: ubuntu-latest
