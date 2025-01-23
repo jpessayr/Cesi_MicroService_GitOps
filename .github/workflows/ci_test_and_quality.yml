@@ -139,6 +139,13 @@ jobs:
         run: docker compose -f docker-compose-build.yml down
         
   QualityBack:
+    runs-on: ubuntu-latest
+    strategy: 
+      matrix:
+        directory: [backend, frontend]
+        token: [${{ secrets.SONAR_TOKEN_BACK }}, ${{ secrets.SONAR_TOKEN_FRONT }}]
+
+  QualityBack:
     needs: [Backend, Frontend]
     runs-on: ubuntu-latest
     defaults:
