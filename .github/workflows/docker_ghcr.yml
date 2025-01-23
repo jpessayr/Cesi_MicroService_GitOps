@@ -33,4 +33,4 @@ jobs:
         with:
           context: backend
           push: true
-          tags: ghcr.io/jpessayr/Cesi_MicroService_GitOps:latest
+          tags: ghcr.io/jpessayr/cesi_microservice_gitops:latest
