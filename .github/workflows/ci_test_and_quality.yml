@@ -138,12 +138,26 @@ jobs:
         working-directory: backend
         run: docker compose -f docker-compose-build.yml down
         
-  QualityBack:
-    runs-on: ubuntu-latest
-    strategy: 
-      matrix:
-        directory: [backend, frontend]
-        token: [${{ secrets.SONAR_TOKEN_BACK }}, ${{ secrets.SONAR_TOKEN_FRONT }}]
+  # Quality:
+  #   runs-on: ubuntu-latest
+  #   strategy: 
+  #     matrix:
+  #       directory: [backend, frontend]
+  #       token: [${{ secrets.SONAR_TOKEN_BACK }}, ${{ secrets.SONAR_TOKEN_FRONT }}]
+
+  #   steps: 
+  #     - name: Checkout
+  #       uses: actions/checkout@v3
+  #       with:
+  #         working-directory: ${{ matrix.directory }}
+
+  #     - name: SonarCloud
+  #       uses: SonarSource/sonarcloud-github-action@v3.1.0
+  #       with:
+  #         projectBaseDir: ${{ ./matrix.directory }}
+  #       env:
+  #         SONAR_TOKEN: ${{ matrix.token }}
+
 
   QualityBack:
     needs: [Backend, Frontend]
